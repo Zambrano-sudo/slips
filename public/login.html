@@ -35,7 +35,7 @@
             if (res.ok) {
                 const data = await res.json();
                 localStorage.setItem('token_slips', data.token); // Salva o acesso
-                window.location.href = '/lista.html'; // Redireciona
+                window.location.href = '/cadastro.html'; // Redireciona
             } else {
                 document.getElementById('erro').style.display = 'block';
             }
