@@ -51,6 +51,12 @@ const Cadastro = mongoose.model('Cadastro', {
     criadoEm: { type: Date, default: Date.now }
 });
 
+// Modelo para Usuários
+const Usuario = mongoose.model('Usuario', {
+    user: { type: String, unique: true },
+    pass: String
+});
+
 // --- 4. ROTAS DE AUTENTICAÇÃO ---
 
 // Rota principal: Envia para o login
@@ -59,13 +65,19 @@ app.get('/', (req, res) => {
 });
 
 // Endpoint de Login
-app.post('/api/login', (req, res) => {
+app.post('/api/login', async (req, res) => {
     const { user, pass } = req.body;
-    if (user === USER_APP && pass === PASS_APP) {
-        // Retorna um token simples de sucesso
-        res.json({ success: true, token: "logado-com-sucesso-2024" });
-    } else {
-        res.status(401).json({ success: false, erro: "Usuário ou senha inválidos" });
+    try {
+        // Busca o usuário exato no MongoDB
+        const usuarioEncontrado = await Usuario.findOne({ user: user, pass: pass });
+
+        if (usuarioEncontrado) {
+            res.json({ success: true, token: "logado-com-sucesso" });
+        } else {
+            res.status(401).json({ success: false, erro: "Usuário ou senha inválidos" });
+        }
+    } catch (err) {
+        res.status(500).json({ erro: "Erro no servidor" });
     }
 });
 
