@@ -24,7 +24,7 @@
     <script>
         async function fazerLogin() {
             const user = document.getElementById('usuario').value;
-            const pass = document.getElementById('senha').value;
+            const pass = document.getElementById('senha').value.toString();
 
             const res = await fetch('/api/login', {
                 method: 'POST',
