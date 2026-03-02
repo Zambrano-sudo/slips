@@ -7,10 +7,6 @@ const path = require('path'); // Para gerir caminhos de ficheiros
 
 const app = express();
 
-// --- CONFIGURAÇÃO DE LOGIN (Defina no .env ou use estes padrões) ---
-const USER_APP = process.env.USER_APP || "admin";
-const PASS_APP = process.env.PASS_APP || "12345";
-
 // 1. Configuração de Segurança (Helmet)
 app.use(
   helmet({
@@ -55,7 +51,7 @@ const Cadastro = mongoose.model('Cadastro', {
 const Usuario = mongoose.model('Usuario', {
     user: String,
     pass: String
-}, 'usuario');
+});
 
 // --- 4. ROTAS DE AUTENTICAÇÃO ---
 
