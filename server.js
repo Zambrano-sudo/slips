@@ -48,6 +48,7 @@ const Cadastro = mongoose.model('Cadastro', {
 });
 
 //Criando Rota para Multiplos usuários
+
 const Usuario = mongoose.model('Usuario', {
     user: String,
     pass: String
