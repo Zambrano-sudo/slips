@@ -51,9 +51,9 @@ const Cadastro = mongoose.model('Cadastro', {
     criadoEm: { type: Date, default: Date.now }
 });
 
-// Modelo para Usuários
+//Criando Rota para Multiplos usuários
 const Usuario = mongoose.model('Usuario', {
-    user: { type: String, unique: true },
+    user: String,
     pass: String
 });
 
@@ -68,7 +68,7 @@ app.get('/', (req, res) => {
 app.post('/api/login', async (req, res) => {
     const { user, pass } = req.body;
     try {
-        // Busca o usuário exato no MongoDB
+        // Busca um documento na coleção 'usuarios' que coincida com o user e pass enviados
         const usuarioEncontrado = await Usuario.findOne({ user: user, pass: pass });
 
         if (usuarioEncontrado) {
@@ -77,7 +77,8 @@ app.post('/api/login', async (req, res) => {
             res.status(401).json({ success: false, erro: "Usuário ou senha inválidos" });
         }
     } catch (err) {
-        res.status(500).json({ erro: "Erro no servidor" });
+        console.error("Erro no login:", err);
+        res.status(500).json({ success: false, erro: "Erro interno no servidor" });
     }
 });
 
