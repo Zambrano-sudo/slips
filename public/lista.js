@@ -6,7 +6,7 @@ async function carregarDados() {
   corpoTabela.innerHTML = '<tr><td colspan="8">Carregando dados...</td></tr>';
 
   try {
-      const resposta = await fetch('http://localhost:3000/api/cadastros');
+      const resposta = await fetch('/api/cadastros');
       const dados = await resposta.json();
 
       corpoTabela.innerHTML = ''; // Limpa o "Carregando"
