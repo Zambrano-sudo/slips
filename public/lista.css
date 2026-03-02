@@ -1,0 +1,124 @@
+:root {
+  --primary: #0f172a; /* Azul Escuro */
+  --accent: #ff0000;  /* Vermelho */
+  --bg: #f1f5f9;      /* Cinza Claro */
+  --white: #ffffff;
+  --border: #e2e8f0;
+}
+
+body {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  background-color: var(--bg);
+  margin: 0;
+  padding: 40px;
+  color: var(--primary);
+}
+
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+header h1 {
+  font-size: 24px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+a {
+  display: inline-block;
+  margin-bottom: 20px;
+  color: var(--primary);
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.2s;
+}
+
+a:hover { color: var(--accent); }
+
+/* TABELA */
+.table-container {
+  background: var(--white);
+  border-radius: 12px;
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+  overflow: hidden; /* Corta as bordas para respeitar o radius */
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+thead {
+  background-color: var(--accent);
+  color: var(--white);
+}
+
+th {
+  padding: 16px;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border: none;
+}
+
+td {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border);
+  vertical-align: middle;
+}
+
+/* ESTILIZAÇÃO DOS INPUTS DENTRO DA TABELA */
+input {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  background: transparent;
+  font-family: inherit;
+  font-size: 14px;
+  transition: all 0.2s;
+}
+
+input:hover {
+  background: #f8fafc;
+  border-color: var(--border);
+}
+
+input:focus {
+  outline: none;
+  background: var(--white);
+  border-color: var(--primary);
+  box-shadow: 0 0 0 2px rgba(15, 23, 42, 0.1);
+}
+
+/* Colunas específicas */
+input[type="number"] { width: 80px; }
+input[type="date"] { width: 130px; }
+
+/* BOTÕES */
+.btn-save, .btn-del {
+  cursor: pointer;
+  border: none;
+  background: none;
+  font-size: 18px;
+  padding: 5px;
+  transition: transform 0.1s;
+}
+
+.btn-save:hover { transform: scale(1.2); }
+.btn-del:hover { transform: scale(1.2); }
+
+/* Responsividade simples para o texto de 'Enviado' */
+td:nth-child(8) {
+  font-size: 12px;
+  color: #64748b;
+  white-space: nowrap;
+}

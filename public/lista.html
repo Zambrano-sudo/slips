@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Lista de Registros</title>
+  <link rel="stylesheet" href="lista.css">
+</head>
+
+<body>
+  <div class="container full-width">
+    <header>
+      <h1>Registros no Banco</h1>
+      <a href="index.html">← Voltar</a>
+    </header>
+<div class="table-container">
+  <table>
+    <thead>
+      <tr>
+        <th>Nome</th>
+        <th>NF</th>
+        <th>Vencimento</th>
+        <th>Valor</th>
+        <th>Descrição</th>
+        <th>C.C.I.</th>
+        <th>C.C.E.</th>
+        <th>Enviado</th>
+        <th>Ações</th>
+      </tr>
+    </thead>
+    <tbody id="corpo-tabela">
+      </tbody>
+  </table>
+</div>
+  </div>
+<script>
+    // Função para carregar os dados assim que a página abrir
+    async function carregar() {
+      try {
+        const res = await fetch('/api/cadastros');
+        const dados = await res.json();
+        const corpo = document.getElementById('corpo-tabela');
+        const dataAtual = new Date();
+
+        corpo.innerHTML = dados.map(item => {
+            // Trata a data para não vir nula
+            const dataISO = item.data ? new Date(item.data).toISOString().split('T')[0] : "";
+            
+            return `
+                <tr>
+                    <td><input id="n-${item._id}" value="${item.nome || ''}"></td>
+                    <td><input type="number" id="nf-${item._id}" value="${item.nf || ''}"></td>
+                    <td><input type="date" id="d-${item._id}" value="${dataISO}"></td>
+                    <td><input type="number" id="v-${item._id}" value="${item.valor || 0}"></td>
+                    <td><input id="dc-${item._id}" value="${item.description || ''}"></td>
+                    <td><input id="cci-${item._id}" value="${item.cci || ''}"></td>
+                    <td><input id="cce-${item._id}" value="${item.cce || ''}"></td>
+                    <td>${dataAtual.toLocaleDateString('pt-BR')}</td>                    
+                    <td>
+                        <button onclick="salvar('${item._id}')" class="btn-save">💾</button>
+                        <button onclick="excluir('${item._id}')" class="btn-del">🗑️</button>
+                    </td>
+                </tr>
+            `;
+        }).join('');
+      } catch (err) {
+        console.error("Erro ao carregar lista:", err);
+      }
+    }
+
+    async function excluir(id) {
+      if (confirm("Deseja realmente excluir este registro?")) {
+        await fetch(`/api/cadastros/${id}`, { method: 'DELETE' });
+        carregar(); // Recarrega a lista
+      }
+    }
+
+    async function salvar(id) {
+      const body = {
+        nome: document.getElementById(`n-${id}`).value,
+        nf: document.getElementById(`nf-${id}`).value,
+        data: document.getElementById(`d-${id}`).value,
+        valor: document.getElementById(`v-${id}`).value,
+        description: document.getElementById(`dc-${id}`).value,
+        cci: document.getElementById(`cci-${id}`).value,
+        cce: document.getElementById(`cce-${id}`).value
+      };
+
+      try {
+        const res = await fetch(`/api/cadastros/${id}`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(body)
+        });
+        if (res.ok) {
+          alert("Registro atualizado!");
+          carregar();
+        }
+      } catch (err) {
+        alert("Erro ao salvar.");
+      }
+    }
+
+    // Inicia a carga quando a página termina de carregar
+    window.onload = carregar;
+  </script>
+</body>
+
+</html>

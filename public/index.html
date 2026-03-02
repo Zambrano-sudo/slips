@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Autorização de emissão de cheque</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body>
+
+    <!--<div style="display: none;">
+        <img id="logo-porto" src="image/logo-porto.png">
+        <img id="logo-padrao" src="image/logo-padrao.png">
+    </div>-->
+
+    <div class="container">
+        <header>
+            <h1>AUTORIZAÇÃO PARA EMISSÃO DE CHEQUE</h1>
+        </header>
+
+        <form id="cadastro-form">
+            <div id="campos-lista">
+                <div class="cadastro-card">
+                    <div class="input-group">
+                        <div class="field">
+                            <label>Favorecido (Nome/Empresa)</label>
+                            <input type="text" placeholder="Ex: João Silva" required class="input-nome">
+                        </div>
+                        <div class="field">
+                            <label>Data de Vencimento</label>
+                            <input type="date" required class="input-data">
+                        </div>
+                        <div class="field">
+                            <label>Valor (R$)</label>
+                            <input type="number" step="0.01" placeholder="R$0,00" required class="input-valor">
+                        </div>
+                            <div class="field">
+                            <label>Documento nº</label>
+                            <input type="text" placeholder="0" required class="input-nf">
+                        </div>
+                        <div class="field">
+                            <label>Centro de Custo Interno (CCI)</label>
+                            <input type="number" placeholder="Centro de Custo" required class="input-CCI">
+                        </div>
+                        <div class="field">
+                            <label>Centro de Custo Externo (CCE)</label>
+                            <input type="number" placeholder="Centro de Custo Parceiro" class="input-CCE">
+                        </div>
+                        <div class="field full-width">
+                            <label>Descrição Detalhada</label>
+                            <textarea required class="input-description" rows="2" placeholder="Descreva o motivo do pagamento..."></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="actions">
+                <button type="button" id="add-campo" class="btn-secondary">+ Adicionar Outro Registro</button>
+                <button type="submit" class="btn-primary">GERAR PDF E SALVAR</button>
+                <a href="lista.html" class="link-lista">Consultar Histórico no Banco</a>
+            </div>
+        </form>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
