@@ -55,7 +55,7 @@ const Cadastro = mongoose.model('Cadastro', {
 const Usuario = mongoose.model('Usuario', {
     user: String,
     pass: String
-});
+}, 'usuario');
 
 // --- 4. ROTAS DE AUTENTICAÇÃO ---
 
@@ -67,6 +67,7 @@ app.get('/', (req, res) => {
 // Endpoint de Login
 app.post('/api/login', async (req, res) => {
     const { user, pass } = req.body;
+    console.log(`Tentativa de login - Usuário: [${user}], Senha: [${pass}]`); // LOG AQUI
     try {
         // Busca um documento na coleção 'usuarios' que coincida com o user e pass enviados
         const usuarioEncontrado = await Usuario.findOne({ user: user, pass: pass });
