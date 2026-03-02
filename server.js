@@ -51,7 +51,7 @@ const Cadastro = mongoose.model('Cadastro', {
 const Usuario = mongoose.model('Usuario', {
     user: String,
     pass: String
-});
+}, 'usuarios');
 
 // --- 4. ROTAS DE AUTENTICAÇÃO ---
 
