@@ -40,7 +40,7 @@ document.getElementById('cadastro-form').addEventListener('submit', async (e) =>
 
     // 2. Tentar enviar para o Servidor (Back-end)
     try {
-        const res = await fetch('http://localhost:3000/api/cadastros', {
+        const res = await fetch('/api/cadastros', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(dados)
