@@ -12,13 +12,13 @@ app.use(
     contentSecurityPolicy: {
       directives: {
         "default-src": ["'self'"],
-        // 'unsafe-inline' permite os scripts dentro do HTML
+        // Adicionamos a cdnjs aqui para permitir o script
         "script-src": ["'self'", "'unsafe-inline'", "https://cdnjs.cloudflare.com"],
-        // 'unsafe-inline' aqui permite os eventos onclick="" nos botões
         "script-src-attr": ["'unsafe-inline'"], 
         "style-src": ["'self'", "'unsafe-inline'"],
         "img-src": ["'self'", "data:", "https:"],
-        "connect-src": ["'self'"], 
+        // ADICIONE "https://cdnjs.cloudflare.com" ABAIXO:
+        "connect-src": ["'self'", "https://cdnjs.cloudflare.com"], 
       },
     },
   })
