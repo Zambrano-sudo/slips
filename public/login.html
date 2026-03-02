@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Login - Sistema Slips</title>
+    <style>
+        body { font-family: sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; background: #f0f2f5; margin: 0; }
+        .login-card { background: white; padding: 2rem; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); width: 300px; text-align: center; }
+        input { width: 100%; padding: 10px; margin: 10px 0; border: 1px solid #ddd; border-radius: 4px; box-sizing: border-box; }
+        button { width: 100%; padding: 10px; background: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer; }
+        button:hover { background: #0056b3; }
+        #erro { color: red; font-size: 14px; margin-top: 10px; display: none; }
+    </style>
+</head>
+<body>
+    <div class="login-card">
+        <h2>Acesso Restrito</h2>
+        <input type="text" id="usuario" placeholder="Usuário">
+        <input type="password" id="senha" placeholder="Senha">
+        <button onclick="fazerLogin()">Entrar</button>
+        <p id="erro">Usuário ou senha incorretos!</p>
+    </div>
+
+    <script>
+        async function fazerLogin() {
+            const user = document.getElementById('usuario').value;
+            const pass = document.getElementById('senha').value;
+
+            const res = await fetch('/api/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ user, pass })
+            });
+
+            if (res.ok) {
+                const data = await res.json();
+                localStorage.setItem('token_slips', data.token); // Salva o acesso
+                window.location.href = '/lista.html'; // Redireciona
+            } else {
+                document.getElementById('erro').style.display = 'block';
+            }
+        }
+    </script>
+</body>
+</html>

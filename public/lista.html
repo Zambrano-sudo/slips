@@ -5,6 +5,11 @@
   <meta charset="UTF-8">
   <title>Lista de Registros</title>
   <link rel="stylesheet" href="lista.css">
+  <script>
+    if (!localStorage.getItem('token_slips')) {
+        window.location.href = '/login.html';
+    }
+  </script>
 </head>
 
 <body>

@@ -1,3 +1,23 @@
+// Definição das credenciais (ou use process.env)
+const USER_APP = process.env.USER_APP || "admin";
+const PASS_APP = process.env.PASS_APP || "12345";
+
+// ROTA DE LOGIN
+app.post('/api/login', (req, res) => {
+    const { user, pass } = req.body;
+    if (user === USER_APP && pass === PASS_APP) {
+        // Em um sistema real usaríamos JWT, aqui vamos simular um token simples
+        res.json({ token: "acesso-permitido-2024" });
+    } else {
+        res.status(401).json({ erro: "Dados inválidos" });
+    }
+});
+
+// Redirecionar a raiz (/) para o login
+app.get('/', (req, res) => {
+    res.sendFile(__dirname + '/public/login.html');
+});
+
 require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
