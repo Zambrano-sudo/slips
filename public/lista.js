@@ -22,6 +22,7 @@ async function carregarDados() {
 
           // Formatando a data para o padrão brasileiro
           const dataFormatada = new Date(item.data).toLocaleDateString('pt-BR');
+          const criadoEmFormatado = new Date(item.criadoEm).toLocaleDateString('pt-BR');
 
           linha.innerHTML = `
               <td>${item.nome}</td>
@@ -31,7 +32,7 @@ async function carregarDados() {
               <td>${item.description}</td>
               <td>${item.cci}</td>
               <td>${item.cce}</td>
-              <td>${new Date().toLocaleDateString('pt-BR')}</td>
+              <td>${criadoEmFormatado}</td>
           `;
           corpoTabela.appendChild(linha);
       });

@@ -44,7 +44,7 @@ const Cadastro = mongoose.model('Cadastro', {
     cci: String,
     cce: String,
     description: String,
-    criadoEm: { type: Date, default: Date.now }
+    criadoEm: Date
 });
 
 //Criando Rota para Multiplos usuários

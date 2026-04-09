@@ -39,39 +39,43 @@
 </div>
   </div>
 <script>
-    // Função para carregar os dados assim que a página abrir
-    async function carregar() {
-      try {
-        const res = await fetch('/api/cadastros');
-        const dados = await res.json();
-        const corpo = document.getElementById('corpo-tabela');
-        const dataAtual = new Date();
+async function carregar() {
+  try {
+    const res = await fetch('/api/cadastros');
+    const dados = await res.json();
+    const corpo = document.getElementById('corpo-tabela');
 
-        corpo.innerHTML = dados.map(item => {
-            // Trata a data para não vir nula
-            const dataISO = item.data ? new Date(item.data).toISOString().split('T')[0] : "";
-            
-            return `
-                <tr>
-                    <td><input id="n-${item._id}" value="${item.nome || ''}"></td>
-                    <td><input type="number" id="nf-${item._id}" value="${item.nf || ''}"></td>
-                    <td><input type="date" id="d-${item._id}" value="${dataISO}"></td>
-                    <td><input type="number" id="v-${item._id}" value="${item.valor || 0}"></td>
-                    <td><input id="dc-${item._id}" value="${item.description || ''}"></td>
-                    <td><input id="cci-${item._id}" value="${item.cci || ''}"></td>
-                    <td><input id="cce-${item._id}" value="${item.cce || ''}"></td>
-                    <td>${dataAtual.toLocaleDateString('pt-BR')}</td>                    
-                    <td>
-                        <button onclick="salvar('${item._id}')" class="btn-save">💾</button>
-                        <button onclick="excluir('${item._id}')" class="btn-del">🗑️</button>
-                    </td>
-                </tr>
-            `;
-        }).join('');
-      } catch (err) {
-        console.error("Erro ao carregar lista:", err);
-      }
-    }
+    corpo.innerHTML = dados.map(item => {
+        // 1. Data de Vencimento (para o input date)
+        const dataVencimentoISO = item.data ? new Date(item.data).toISOString().split('T')[0] : "";
+        
+        // 2. Data de Envio (criadoEm vindo do banco)
+        // Se o item.criadoEm não existir, ele mostrará "---" em vez da data de hoje
+        const enviadoFormatado = item.criadoEm 
+            ? new Date(item.criadoEm).toLocaleDateString('pt-BR') 
+            : "---";
+
+        return `
+            <tr>
+                <td><input id="n-${item._id}" value="${item.nome || ''}"></td>
+                <td><input type="text" id="nf-${item._id}" value="${item.nf || ''}"></td>
+                <td><input type="date" id="d-${item._id}" value="${dataVencimentoISO}"></td>
+                <td><input type="number" id="v-${item._id}" value="${item.valor || 0}"></td>
+                <td><input id="dc-${item._id}" value="${item.description || ''}"></td>
+                <td><input id="cci-${item._id}" value="${item.cci || ''}"></td>
+                <td><input id="cce-${item._id}" value="${item.cce || ''}"></td>
+                <td>${enviadoFormatado}</td>                    
+                <td>
+                    <button onclick="salvar('${item._id}')" class="btn-save">💾</button>
+                    <button onclick="excluir('${item._id}')" class="btn-del">🗑️</button>
+                </td>
+            </tr>
+        `;
+    }).join('');
+  } catch (err) {
+    console.error("Erro ao carregar lista:", err);
+  }
+}
 
     async function excluir(id) {
       if (confirm("Deseja realmente excluir este registro?")) {
