@@ -2,6 +2,7 @@
   --primary: #0f172a;
   --accent: red;
   --bg: #f1f5f9;
+  --aviso: #f38e8e;
 }
 
 body {
@@ -15,6 +16,15 @@ body {
 .container { width: 100%; max-width: 700px; }
 
 header { text-align: center; margin-bottom: 30px; }
+
+.aviso {
+  background-color: var(--aviso);
+  border: solid 1px var(--accent);
+  border-radius: 1rem;
+  margin-bottom: 1rem;
+  opacity: 50%;
+  padding: 0.5rem;
+}
 
 .cadastro-card {
   background: white;
