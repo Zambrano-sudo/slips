@@ -45,6 +45,8 @@ async function carregar() {
     const dados = await res.json();
     const corpo = document.getElementById('corpo-tabela');
 
+    const dadosOrdenados = dados.sort((a, b) => new Date(b.criadoEm) - new Date(a.criadoEm));
+
     corpo.innerHTML = dados.map(item => {
         // 1. Data de Vencimento (para o input date)
         const dataVencimentoISO = item.data ? new Date(item.data).toISOString().split('T')[0] : "";

@@ -32,7 +32,8 @@ document.getElementById('cadastro-form').addEventListener('submit', async (e) =>
         nf: card.querySelector('.input-nf').value,
         cci: card.querySelector('.input-CCI').value,
         cce: card.querySelector('.input-CCE').value,
-        description: card.querySelector('.input-description').value
+        description: card.querySelector('.input-description').value,
+        criadoEm: new Date().toISOString()
     }));
 
     // 1. Gerar o PDF primeiro (Garante que o utilizador recebe o ficheiro)
